@@ -3,7 +3,7 @@
 This project processes a large document into a vectorstore database (ChromaDB) and allows an LLM to answer questions about that document through a UI.
 
 ### Note:
-This is a learning project to explore these concepts. Modifications, enhancements, or feedback are welcomed through issues or pull requests.
+_This is a learning project to explore these concepts. Modifications, enhancements, or feedback are welcomed through issues or pull requests._
 
 ## Service
 
