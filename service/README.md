@@ -22,6 +22,7 @@ LLM_MODEL=gpt-4o-mini
 SECTIONS=tos.json
 PRE_PROCESSED_SECTIONS=preprocessed_tos.json
 ```
+* creeate .env in ./service with the above
 * define and activate your local python venv
 * pip install --no-cache-dir -r requirements.txt
 
