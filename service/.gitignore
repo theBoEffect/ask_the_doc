@@ -1,4 +1,5 @@
 .env
+venv/
 docSummary.json
 document.pdf
 */tos.json

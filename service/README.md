@@ -1,4 +1,4 @@
-# Document Q&A Service
+# Document LLM Q&A Service
 
 This project processes a large document into a vectorstore database (ChromaDB) and allows an LLM to answer questions about that document. This requires the following steps:
 
@@ -22,7 +22,8 @@ LLM_MODEL=gpt-4o-mini
 SECTIONS=tos.json
 PRE_PROCESSED_SECTIONS=preprocessed_tos.json
 ```
-pip install --no-cache-dir -r requirements.txt
+* define and activate your local python venv
+* pip install --no-cache-dir -r requirements.txt
 
 ## 2. Pick Your Document
 

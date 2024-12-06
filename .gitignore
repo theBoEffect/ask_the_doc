@@ -1,0 +1,10 @@
+.env
+*/venv/
+*/docSummary.json
+*/document.pdf
+*/tos.json
+*/preprocessed_tos.json
+*/chroma_db/
+*/summaries_log.txt
+*/summarization.log
+*/__pycache__/
