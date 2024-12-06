@@ -8,7 +8,7 @@ This project processes a large document into a vectorstore database (ChromaDB) a
 4. Process your json document into summaries to be included in the vectorstore
 5. Run the service
 
-## 1. Define .env
+## 1. Define .env, venv, and pip install
 
 ```
 OPENAI_API_KEY=sk-proj-KEY
