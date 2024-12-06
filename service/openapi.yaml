@@ -1,0 +1,53 @@
+openapi: 3.0.0
+info:
+  title: Document Query API
+  version: 1.0.0
+  description: API for document query system.
+  x-logo:
+    url: https://pbs.twimg.com/profile_images/1626704165391986695/L8FY5-H7_400x400.jpg
+security:
+  - bearer: []
+servers:
+  - url: http://localhost:8000/api
+paths:
+  /query:
+    post:
+      summary: Process a query and generate a response
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/prompt'
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/promptResponse'
+        400:
+          description: bad request
+        500:
+          description: internal error
+components:
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+      description: If implemented, enter the api bearer token.
+  
+  schemas:
+    prompt:
+      type: object
+      properties:
+        query:
+          type: string
+          example: "What is the capital of France?"
+
+    promptResponse:
+      type: object
+      properties:
+        response:
+          type: string
+          example: "The capital of France is Paris."
