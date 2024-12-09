@@ -1,7 +1,7 @@
 .env
 venv/
-docSummary.json
-document.pdf
+data/docSummary.json
+data/document.pdf
 */tos.json
 */preprocessed_tos.json
 chroma_db/
@@ -9,3 +9,4 @@ chroma_db/
 */summarization.log
 */__pycache__/
 __pycache__/
+static/

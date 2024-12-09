@@ -2,7 +2,7 @@ import json, os
 from typing import List, Dict
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override=True)
 
 def load_tos_summary(file_path: str) -> List[Dict]:
     with open(file_path, 'r') as f:

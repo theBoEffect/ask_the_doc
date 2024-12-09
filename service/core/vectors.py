@@ -6,7 +6,7 @@ from langchain.schema import Document  # Import the Document class
 from dotenv import load_dotenv
 from langchain_openai import OpenAIEmbeddings
 
-load_dotenv()
+load_dotenv(override=True)
 
 openai_api_key = os.getenv("OPENAI_API_KEY")
 db_path = os.getenv('CHROMA_PATH')
@@ -19,7 +19,7 @@ def load_chroma(persist_directory):
     return vectorstore
 
 # Step 1: Load and split the document into chunks
-def split_document_into_chunks(documents, chunk_size=1000, overlap=300):
+def split_document_into_chunks(documents, chunk_size=1500, overlap=500):
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=chunk_size,  # Define the chunk size
         chunk_overlap=overlap,  # Define the overlap between chunks
@@ -31,10 +31,11 @@ def split_document_into_chunks(documents, chunk_size=1000, overlap=300):
 def load_summaries_from_json(file_path):
     # Determine the absolute path to the summary file
     root_dir = Path(__file__).resolve().parent.parent
-    summary_file_path = root_dir / file_path
-
+    print('sum doc', file_path)
+    summary_file_path = f"{root_dir}/{file_path}"
+    print('sum path', summary_file_path)
     # Check if the file exists
-    if not summary_file_path.exists():
+    if not os.path.exists(summary_file_path):
         print(f"Warning: The file {summary_file_path} does not exist.")
         return []
 

@@ -17,6 +17,7 @@
 
     // State for light/dark mode toggle
     const darkMode = writable(false);
+    const uiPath = __BACKEND__;
     const toggleDarkMode = () => {
         darkMode.update((mode) => !mode);
 
@@ -47,8 +48,8 @@
     <div class="sticky-top flex justify-between items-center px-4 py-2 border-b border-gray-300 dark:border-gray-300" style="background-color: inherit;">
         <h1 class="text-lg font-semibold">Ask {docName}</h1>
         <div class="flex items-center">
-            <a href="#" class="menu-link">Document</a>
-            <a href="https://github.com/theBoEffect/ask_the_doc" class="menu-link">Source Code</a>
+            <a href="{uiPath}/data/document.pdf" target="_blank" class="menu-link">Document</a>
+            <a href="https://github.com/theBoEffect/ask_the_doc" target="_blank" class="menu-link">Source Code</a>
             <button
               class="p-2 rounded toggle-btn"
               on:click={toggleDarkMode}

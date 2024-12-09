@@ -2,13 +2,14 @@ import os
 import core.document
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from api.query import api_router  # Import API router from the query file
 from core.openapi import custom_openapi  # Import custom OpenAPI schema override
 from core.vectors import split_document_into_chunks, load_summaries_from_json, store_all_chunks_in_chroma
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override=True)
 
 file_name = os.getenv('DOCUMENT')
 db_path = os.getenv('CHROMA_PATH')
@@ -50,8 +51,13 @@ app.include_router(api_router, prefix="/api")
 
 # Allow specific origins (e.g., frontend URL)
 origins = [
-    "http://localhost:5173"  # Replace with your frontend's local development URL
+    "http://localhost:5173", #svelte dev mode
+    "http://localhost:4173"  #svelte preview
 ]
+
+app.mount("/data", StaticFiles(directory="data"), name="data")
+app.mount("/", StaticFiles(directory="static", html=True), name="static")
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -61,6 +67,8 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers (e.g., Content-Type, Authorization)
 )
 
+'''
 @app.get("/")
 async def read_root():
     return {"message": "Welcome to the app!"}
+    '''

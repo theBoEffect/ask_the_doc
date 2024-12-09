@@ -12,7 +12,7 @@ from langchain.prompts import PromptTemplate
 from tqdm import tqdm  # Added tqdm for progress tracking
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override=True)
 
 doc_name = os.getenv('DOCUMENT_TITLE')
 
@@ -20,7 +20,7 @@ def load_document(file_path: str):
     print("starting load...")
     # Get the absolute path to ensure it's correct relative to the root
     root_dir = Path(__file__).resolve().parent.parent
-    full_path = root_dir / file_path
+    full_path = f"{root_dir}/{file_path}"
     # Load the document
     loader = PyPDFLoader(full_path)
     documents = loader.load()

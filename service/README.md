@@ -14,8 +14,8 @@ This project processes a large document into a vectorstore database (ChromaDB) a
 OPENAI_API_KEY=sk-proj-KEY
 OPENAPI_SPEC=openapi.yaml
 DOCUMENT_TITLE=Document Title Here
-DOCUMENT=document.pdf
-SUMMARY=docSummary.json
+DOCUMENT=data/document.pdf
+SUMMARY=data/docSummary.json
 CHROMA_PATH=./chroma_db
 SUMMARY_MODEL=gpt-4o-mini
 LLM_MODEL=gpt-4o-mini
@@ -28,7 +28,7 @@ PRE_PROCESSED_SECTIONS=preprocessed_tos.json
 
 ## 2. Pick Your Document
 
-* Select a document you'd like to process and save it to the root of this service section (./service) as document.pdf
+* Select a document you'd like to process and save it to the data director of this service section (./service/data) as document.pdf
 * You can use ./service/example/proj2025/document.pdf if you wish.
 * If you decide you want to use a different name than "document", you just need to update the .env value as well
 
@@ -49,7 +49,7 @@ You'll want to define a JSON document that includes the following structure and 
 
 1. We will first clean up and combine overlapping sections in tos.json.
 2. Then we will build a summarization of the sections from the document.pdf file. This may take 15 to 20 minutes.
-3. Finally we need to move the resulting JSON (docSummary.json according to .env) to the root of the project, ./service
+3. Finally we need to move the resulting JSON (docSummary.json according to .env) to the data director of the project, ./service/data
 
 Note that you will see 2 log files which can help you follow whats happening: summaries_log.txt and summarization.log. You can delete these afterwards if things work as expected. It's easiest to move into the processing directory to do all this.
 
@@ -57,7 +57,7 @@ Note that you will see 2 log files which can help you follow whats happening: su
 * python preprocessing.py
 * python summarize.py
 * cd ..
-* cp ./processing/docSummary.json ./docSummary.json
+* cp ./processing/docSummary.json ./data/docSummary.json
 
 # 5. Run the Service
 
@@ -65,3 +65,10 @@ At this point, everything is in place. When you start the service, it will check
 
 * uvicorn app:app --reload
 * localhost:8000/docs (this is swagger)
+
+
+### TODO
+
+* Increase the chunk and overlap sizes (1500/500)
+* Docker
+* Launch on Google Run

@@ -4,7 +4,7 @@ from fastapi import Request
 import yaml, os
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override=True)
 
 open_api = os.getenv('OPENAPI_SPEC')
 

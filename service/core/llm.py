@@ -4,7 +4,7 @@ from langchain.prompts import PromptTemplate
 from core.vectors import load_chroma, query_vector_store
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override=True)
 
 doc_name = os.getenv('DOCUMENT_TITLE')
 db_path = os.getenv('CHROMA_PATH')
