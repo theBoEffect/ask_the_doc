@@ -59,14 +59,14 @@ Note that you will see 2 log files which can help you follow whats happening: su
 * cd ..
 * cp ./processing/docSummary.json ./data/docSummary.json
 
-# 5. Run the Service
+## 5. Run the Service
 
 At this point, everything is in place. When you start the service, it will check to see if ./chroma_db (from .env) is present or not. If not, it will build the vectorstore and start the service to process queries. If chroma is there, it will simply start the service.
 
 * uvicorn app:app --reload
 * localhost:8000/docs (this is swagger)
 
-### Docker with GCP and Google Run
+## Docker with GCP and Google Run
 
 * You'll want to run it locally once to build ./chroma_db before building the container - its a todo to move this into a build step
 * Also make sure you've gone to ./ui and run "yarn build" to get the static UI files over here
