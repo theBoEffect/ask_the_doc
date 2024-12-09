@@ -5,10 +5,25 @@ This project processes a large document into a vectorstore database (ChromaDB) a
 ### Note:
 _This is a learning project to explore these concepts. Modifications, enhancements, or feedback are welcomed through issues or pull requests._
 
-## Service
+## Stack
+
+### Service
 
 Click into the service directory to view backend python code for vectorstore and LLM integration using OpenAI. Directory specific README is provided there.
 
-## UI
+* FastAPI
+* ChromaDB
+* LangChain
+* OpenAI
+* OpenAPI
+* 
 
-Pending...
+### UI
+
+Click into the ui directory to view the ui svelte project.
+
+* TypeScript
+* Svelte
+* tailwindcss
+
+## Build and usage instructions pending...
