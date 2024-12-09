@@ -19,6 +19,7 @@ export const queryService = async (query: string): Promise<string> => {
 		}
 
 		const data = await response.json();
+		console.info('FOR DEBUG', data);
 		return data.response.replace(/\n/g, '<br>'); // Expected to be { "response": "SYSTEM RESPONSE HERE" }
 	} catch (error) {
 		console.error('Failed to fetch data from the backend:', error);

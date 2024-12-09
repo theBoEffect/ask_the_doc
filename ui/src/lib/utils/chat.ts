@@ -31,7 +31,7 @@ export const chatMessages: Writable<Message[]> = writable([
 export const askedQuestions: Writable<Question[]> = writable([]);
 export const selectedQuestion: Writable<Question | null> = writable(null);
 export const isModalOpen: Writable<boolean> = writable(false);
-
+export const isLoading: Writable<boolean> = writable(false); // NEW store for loading state
 // Define functions
 // Function to add a message to the chat
 export const addMessage = (role: 'user' | 'assistant', text: string) => {
@@ -67,6 +67,8 @@ export const sendMessage = async (): Promise<void> => {
 
 	// Clear the user's input
 	userMessage.set('');
+	// Start loading
+	isLoading.set(true);
 
 	try {
 		// Fetch the response from the backend using queryService
@@ -88,6 +90,9 @@ export const sendMessage = async (): Promise<void> => {
 			},
 		]);
 		console.error('Error during sendMessage:', error);
+	} finally {
+		// Stop loader
+		isLoading.set(false);
 	}
 };
 

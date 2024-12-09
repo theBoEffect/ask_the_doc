@@ -12,6 +12,7 @@
         openModal,
         closeModal,
         getResponseForQuestion,
+        isLoading
     } from '$lib/utils/chat';
 
     // State for light/dark mode toggle
@@ -29,6 +30,12 @@
         }
     };
     const parseMarkdown = (text) => marked(text);
+
+    const handleKeyPress = (event) => {
+        if (event.key === 'Enter' && !$isLoading) {
+            sendMessage();
+        }
+    };
 </script>
 
 <style>
@@ -37,7 +44,7 @@
 
 <div class="flex flex-col h-screen">
     <!-- Top Menu Bar -->
-    <div class="flex justify-between items-center px-4 py-2 border-b border-gray-300 dark:border-gray-300" style="background-color: inherit;">
+    <div class="sticky-top flex justify-between items-center px-4 py-2 border-b border-gray-300 dark:border-gray-300" style="background-color: inherit;">
         <h1 class="text-lg font-semibold">Ask {docName}</h1>
         <div class="flex items-center">
             <a href="#" class="menu-link">Document</a>
@@ -53,7 +60,7 @@
 
     <div class="flex flex-grow">
         <!-- Left Sidebar -->
-        <div class="w-1/4 border-r border-gray-300 dark:border-gray-300 p-4" style="background-color: inherit;">
+        <div class="left-sidebar w-1/4 border-r border-gray-300 dark:border-gray-300 p-4" style="background-color: inherit;">
             <h2 class="text-lg font-bold mb-4">Questions so far...</h2>
             <ul class="space-y-2">
                 {#each $askedQuestions as { id, question } (id)}
@@ -68,7 +75,7 @@
         </div>
 
         <!-- Main Content -->
-        <div class="flex flex-col w-3/4">
+        <div class="main-content flex flex-col w-3/4">
             <!-- Chat Section -->
             <div class="flex-grow p-4 overflow-y-auto space-y-4" style="background-color: inherit;">
                 {#each $chatMessages as { id, role, text } (id)}
@@ -84,14 +91,19 @@
                   type="text"
                   bind:value={$userMessage}
                   placeholder="Type your question..."
+                  on:keypress={handleKeyPress}
                   class="flex-grow px-4 py-2 border rounded bg-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 focus:outline-none focus:ring focus:ring-blue-300"
                 />
-                <button
-                  on:click={sendMessage}
-                  class="ml-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:ring focus:ring-blue-300"
-                >
-                    Send
-                </button>
+                {#if $isLoading}
+                    <div class="ml-2 spinner"></div>
+                {:else}
+                    <button
+                      on:click={sendMessage}
+                      class="ml-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:ring focus:ring-blue-300"
+                    >
+                        Send
+                    </button>
+                {/if}
             </div>
         </div>
     </div>

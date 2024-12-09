@@ -13,6 +13,17 @@
     color: #ffffff;
 }
 
+:global(.sticky-top) {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #f9f9f9 !important;
+}
+
+:global(.dark .sticky-top) {
+    background-color: #3c3c3c !important;
+}
+
 :global(.border-gray-300) {
     border-color: #3c3c3c !important;
 }
@@ -127,4 +138,31 @@ body.dark .modal-content {
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
+}
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #000;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.left-sidebar {
+    overflow-y: auto;
+    max-height: calc(100vh - 64px); /* Adjusting for top bar height */
+}
+
+.main-content {
+    overflow-y: auto;
+    max-height: calc(100vh - 64px); /* Adjusting for top bar height */
 }
