@@ -1,4 +1,4 @@
-# Document LLM Q&A
+# Ask the Document
 
 This project processes a large document into a vectorstore database (ChromaDB) and allows an LLM to answer questions about that document through a UI.
 
