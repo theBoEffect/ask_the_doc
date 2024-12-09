@@ -2,7 +2,7 @@ import { defineConfig } from "vitest/config";
 import { sveltekit } from '@sveltejs/kit/vite';
 import dotenv from 'dotenv';
 
-dotenv.config();
+dotenv.config({ override: true });
 export default defineConfig({
     plugins: [sveltekit()],
     define: {

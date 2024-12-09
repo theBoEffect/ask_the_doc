@@ -66,9 +66,22 @@ At this point, everything is in place. When you start the service, it will check
 * uvicorn app:app --reload
 * localhost:8000/docs (this is swagger)
 
+### Docker with GCP and Google Run
+
+* docker build --platform=linux/amd64 --no-cache -t gcr.io/YOUR-PROJECT/ask_the_doc .
+* docker push gcr.io/YOUR-PROJECT/ask_the_doc
+
+```
+gcloud run deploy ask-the-doc \
+    --image gcr.io/YOUR-PROJECT/ask_the_doc:latest \
+    --platform managed \
+    --region us-east4 \
+    --allow-unauthenticated \
+    --update-secrets "OPENAI_API_KEY=YOUR_SECRET_IN_GCP:latest" \
+    --set-env-vars "DOCUMENT=data/document.pdf,SUMMARY=data/docSummary.json,CHROMA_PATH=./chroma_db,SUMMARY_MODEL=gpt-4o-mini,LLM_MODEL=gpt-4o-mini,SECTIONS=tos.json,PRE_PROCESSED_SECTIONS=preprocessed_tos.json"
+```
 
 ### TODO
 
-* Increase the chunk and overlap sizes (1500/500)
-* Docker
 * Launch on Google Run
+* Need to create a make build step that creates chroma_db before containerization
