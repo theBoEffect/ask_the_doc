@@ -1,4 +1,4 @@
-# Ask the Doc UI
+# Ask the Document UI
 
 This is the UI for our Document Q&A solution, powered by [`Svelte`](https://github.com/sveltejs/cli).
 
