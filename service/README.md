@@ -1,4 +1,4 @@
-# Document LLM Q&A Service
+# Ask the Document Service (backend)
 
 This project processes a large document into a vectorstore database (ChromaDB) and allows an LLM to answer questions about that document. This requires the following steps:
 
