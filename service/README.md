@@ -68,6 +68,8 @@ At this point, everything is in place. When you start the service, it will check
 
 ### Docker with GCP and Google Run
 
+* You'll want to run it locally once to build ./chroma_db before building the container - its a todo to move this into a build step
+* Also make sure you've gone to ./ui and run "yarn build" to get the static UI files over here
 * docker build --platform=linux/amd64 --no-cache -t gcr.io/YOUR-PROJECT/ask_the_doc .
 * docker push gcr.io/YOUR-PROJECT/ask_the_doc
 
@@ -80,8 +82,3 @@ gcloud run deploy ask-the-doc \
     --update-secrets "OPENAI_API_KEY=YOUR_SECRET_IN_GCP:latest" \
     --set-env-vars "DOCUMENT=data/document.pdf,SUMMARY=data/docSummary.json,CHROMA_PATH=./chroma_db,SUMMARY_MODEL=gpt-4o-mini,LLM_MODEL=gpt-4o-mini,SECTIONS=tos.json,PRE_PROCESSED_SECTIONS=preprocessed_tos.json"
 ```
-
-### TODO
-
-* Launch on Google Run
-* Need to create a make build step that creates chroma_db before containerization
