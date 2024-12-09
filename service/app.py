@@ -2,6 +2,7 @@ import os
 import core.document
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from api.query import api_router  # Import API router from the query file
 from core.openapi import custom_openapi  # Import custom OpenAPI schema override
 from core.vectors import split_document_into_chunks, load_summaries_from_json, store_all_chunks_in_chroma
@@ -46,6 +47,19 @@ app.openapi = custom_openapi  # Use the custom OpenAPI schema
 
 # Include the /api router under the /api path
 app.include_router(api_router, prefix="/api")
+
+# Allow specific origins (e.g., frontend URL)
+origins = [
+    "http://localhost:5173"  # Replace with your frontend's local development URL
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,  # Allows requests from these origins
+    allow_credentials=True,  # Allows cookies or Authorization headers
+    allow_methods=["*"],  # Allows all HTTP methods (e.g., GET, POST)
+    allow_headers=["*"],  # Allows all headers (e.g., Content-Type, Authorization)
+)
 
 @app.get("/")
 async def read_root():

@@ -1,5 +1,6 @@
-<script>
+<script lang="ts">
     import { writable } from 'svelte/store';
+    import { marked } from 'marked'; // Import the Markdown parser
     import {
         docName,
         userMessage,
@@ -27,7 +28,7 @@
             document.body.classList.remove('dark');
         }
     };
-
+    const parseMarkdown = (text) => marked(text);
 </script>
 
 <style>
@@ -55,8 +56,13 @@
         <div class="w-1/4 border-r border-gray-300 dark:border-gray-300 p-4" style="background-color: inherit;">
             <h2 class="text-lg font-bold mb-4">Questions so far...</h2>
             <ul class="space-y-2">
-                {#each $askedQuestions as question}
-                    <li class="text-sm truncate cursor-pointer" on:click={() => openModal(question)}>{question}</li>
+                {#each $askedQuestions as { id, question } (id)}
+                    <li
+                      class="text-sm truncate cursor-pointer"
+                      on:click={() => openModal(id)}
+                    >
+                        {question}
+                    </li>
                 {/each}
             </ul>
         </div>
@@ -65,9 +71,9 @@
         <div class="flex flex-col w-3/4">
             <!-- Chat Section -->
             <div class="flex-grow p-4 overflow-y-auto space-y-4" style="background-color: inherit;">
-                {#each $chatMessages as message (message.text)}
-                    <div class="chat-message {message.role}">
-                        <div class="chat-bubble">{message.text}</div>
+                {#each $chatMessages as { id, role, text } (id)}
+                    <div class="chat-message {role}">
+                        <div class="chat-bubble">{@html parseMarkdown(text)}</div>
                     </div>
                 {/each}
             </div>
@@ -96,7 +102,7 @@
                     <h2>Response</h2>
                     <button class="modal-close" on:click={closeModal}>&times;</button>
                 </div>
-                <p>{getResponseForQuestion($selectedQuestion)}</p>
+                <p>{@html parseMarkdown(getResponseForQuestion($selectedQuestion?.id))}</p>
             </div>
         </div>
     {/if}
