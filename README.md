@@ -16,7 +16,6 @@ Click into the service directory to view backend python code for vectorstore and
 * LangChain
 * OpenAI
 * OpenAPI
-* 
 
 ### UI
 
