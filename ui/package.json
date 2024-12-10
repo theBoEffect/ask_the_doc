@@ -6,7 +6,8 @@
 	"license": "MIT",
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build && rm -rf ../service/static && cp -r ./build ../service/static",
+		"build": "vite build && node ./scripts/onbuild.js && rm -rf ../service/static && cp -r ./build ../service/static",
+		"build:local": "vite build && node ./scripts/onbuild.js",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",

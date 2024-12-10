@@ -27,6 +27,7 @@ yarn build
 ```
 
 * You can preview the production build with `yarn preview`.
+* There is metadata injected in the build/index.html file that may not be visible in dev or preview mode, but you can visually inspect it
 * Build will actually create a copy of the static files in the ./service/static folder where you can serve them with the python backend
 * Remember to update your .env BACKEND variable to point to where you are hosting the backend
 
