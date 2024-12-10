@@ -243,3 +243,47 @@ body.dark .modal-content {
         display: block; /* Show hamburger menu */
     }
 }
+
+.dropdown-menu {
+    position: absolute; /* Position relative to the parent container */
+    top: 100%; /* Start just below the button */
+    right: 0; /* Align to the right of the button */
+    border-radius: 4px;
+    padding: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    z-index: 1000; /* Ensure it appears above other elements */
+    width: max-content; /* Ensure it only takes as much space as needed */
+}
+
+.dropdown-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+}
+
+:global(body.light .dropdown-menu) {
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+}
+
+:global(body.dark .dropdown-menu) {
+    background-color: #333;
+    border: #555;
+}
+
+:global(body.light .dropdown-link) {
+    color: #000 !important;
+}
+
+:global(body.dark .dropdown-link) {
+    color: #fff !important;
+
+}
+
+:global(body.light .dropdown-link:hover) {
+    background-color: #f0f0f0 !important;
+}
+
+:global(body.dark .dropdown-link:hover) {
+    background-color: #555 !important;
+}
