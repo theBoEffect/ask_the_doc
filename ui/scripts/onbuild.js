@@ -13,13 +13,13 @@ const meta = `
 <title>Ask ${process.env.DOCUMENT_NAME || 'Ask the Doc'}</title>
 <meta name="description" content="${process.env.META_DESCRIPTION || 'An AI Agent to answer questions about a document.'}">
 <meta property="og:type" content="website">
-<meta property="og:title" content="${process.env.DOCUMENT_NAME || 'Ask the Doc'}">
+<meta property="og:title" content="Ask ${process.env.DOCUMENT_NAME || 'Ask the Doc'}">
 <meta property="og:description" content="${process.env.META_DESCRIPTION || 'An AI Agent to answer questions about a document.'}">
 <meta property="og:url" content="${process.env.BACKEND || 'http://localhost:8000'}">
 <meta property="og:image" content="${process.env.META_IMG_URL || ''}">
 <meta property="twitter:card" content="summary_large_image">
 <meta property="twitter:url" content="${process.env.BACKEND || 'http://localhost:8000'}">
-<meta property="twitter:title" content="${process.env.DOCUMENT_NAME || 'Ask the Doc'}">
+<meta property="twitter:title" content="Ask ${process.env.DOCUMENT_NAME || 'Ask the Doc'}">
 <meta property="twitter:description" content="${process.env.META_DESCRIPTION || 'An AI Agent to answer questions about a document.'}">
 <meta property="twitter:image" content="${process.env.META_IMG_URL || ''}">
 `;
