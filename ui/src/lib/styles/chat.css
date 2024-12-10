@@ -107,6 +107,7 @@ body.dark .chat-message.user .chat-bubble {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1000;
 }
 
 .modal-content {
@@ -158,11 +159,87 @@ body.dark .modal-content {
 }
 
 .left-sidebar {
+    z-index: 500; /* Lower than modal */
     overflow-y: auto;
     max-height: calc(100vh - 64px); /* Adjusting for top bar height */
+}
+
+:global(body.light .left-sidebar) {
+    background-color: #f9f9f9 !important;
+}
+
+:global(body.dark .left-sidebar) {
+    background-color: #3c3c3c !important; /* Dark mode color */
 }
 
 .main-content {
     overflow-y: auto;
     max-height: calc(100vh - 64px); /* Adjusting for top bar height */
+}
+
+.left-sidebar {
+    transition: transform 0.3s ease; /* Smooth toggle */
+    transform: translateX(0);       /* Default: visible */
+}
+
+.sidebar-hidden {
+    transform: translateX(-100%); /* Hidden off-screen */
+}
+
+.hamburger-menu {
+    display: none; /* Hidden by default */
+}
+
+/* Hide regular links and show hamburger menu on small screens */
+.menu-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.menu-link:hover {
+    text-decoration: underline;
+}
+
+.hamburger-menu {
+    display: none;
+}
+
+.md\:hidden {
+    display: none;
+}
+
+.md\:flex {
+    display: flex;
+}
+
+@media (max-width: 768px) {
+    .menu-link {
+        display: none; /* Hide links */
+    }
+
+    .hamburger-menu {
+        display: block; /* Show hamburger menu */
+    }
+
+    .md\:hidden {
+        display: block; /* Show hidden elements on small screens */
+    }
+
+    .md\:flex {
+        display: none; /* Hide flex elements on small screens */
+    }
+
+    .left-sidebar {
+        position: fixed;
+        top: 64px; /* Adjust based on top bar height */
+        left: 0;
+        height: calc(100vh - 64px);
+        width: 75%;
+        z-index: 100;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .hamburger-menu {
+        display: block; /* Show hamburger menu */
+    }
 }

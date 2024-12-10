@@ -1,6 +1,7 @@
 <script lang="ts">
     import { writable } from 'svelte/store';
     import { marked } from 'marked'; // Import the Markdown parser
+    import { browser } from '$app/environment';
     import {
         docName,
         userMessage,
@@ -37,6 +38,51 @@
             sendMessage();
         }
     };
+
+    const isSidebarOpen = writable(false);
+    const toggleSidebar = () => isSidebarOpen.update((state) => !state);
+
+    const handleResize = () => {
+        if (browser) { // Ensure this runs only on the client
+            const isMobile = window.matchMedia('(max-width: 768px)').matches;
+            isSidebarOpen.set(!isMobile); // Hide sidebar on mobile, show on larger screens
+        }
+    };
+
+    // Dropdown open state
+    const dropdownOpen = writable(false);
+
+    // Toggle dropdown state
+    const toggleDropdown = () => {
+        console.log('clicked')
+        console.info('before update', $dropdownOpen);
+        dropdownOpen.update((state) => {
+            console.log('Current state:', state);
+            return !state; // Toggle state
+        });
+        console.info('new state', $dropdownOpen);
+    };
+
+    // Close dropdown
+    const closeDropdown = () => {
+        dropdownOpen.set(false);
+    };
+
+    if (browser) {
+        // Add event listener only in the browser
+        window.addEventListener('resize', handleResize);
+        // Initialize state on mount
+        handleResize();
+    }
+
+    import { onDestroy } from 'svelte';
+    onDestroy(() => {
+        if (browser) {
+            console.info('this happened...')
+            window.removeEventListener('resize', handleResize);
+            window.removeEventListener('click', closeDropdown);
+        }
+    });
 </script>
 
 <style>
@@ -48,8 +94,44 @@
     <div class="sticky-top flex justify-between items-center px-4 py-2 border-b border-gray-300 dark:border-gray-300" style="background-color: inherit;">
         <h1 class="text-lg font-semibold">Ask {docName}</h1>
         <div class="flex items-center">
-            <a href="{uiPath}/data/document.pdf" target="_blank" class="menu-link">Document</a>
-            <a href="https://github.com/theBoEffect/ask_the_doc" target="_blank" class="menu-link">Source Code</a>
+            <!-- Regular Links (Visible on Larger Screens) -->
+            <div class="hidden md:flex space-x-4">
+                <a href="{uiPath}/data/document.pdf" target="_blank" class="menu-link">Document</a>
+                <a href="https://github.com/theBoEffect/ask_the_doc" target="_blank" class="menu-link">Source Code</a>
+            </div>
+
+            <!-- Arrow for side bar -->
+            <button
+              class="p-2 rounded hamburger-menu"
+              on:click={toggleSidebar}
+              aria-label="Toggle Sidebar"
+            >
+                >
+            </button>
+
+            <!-- Hamburger Menu for Small Screens -->
+            <div class="relative md:hidden">
+                <button
+                  class="p-2 rounded hamburger-menu"
+                  on:click={toggleDropdown}
+                  aria-label="Open Links">
+                    ☰
+                </button>
+                {#if $dropdownOpen}
+                    <div class="dropdown-menu">
+                        <ul>
+                            <li>
+                                <a href="{uiPath}/data/document.pdf" target="_blank" class="dropdown-link">Document</a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/theBoEffect/ask_the_doc" target="_blank" class="dropdown-link">Source Code</a>
+                            </li>
+                        </ul>
+                    </div>
+                {/if}
+            </div>
+
+            <!-- Dark Mode Toggle -->
             <button
               class="p-2 rounded toggle-btn"
               on:click={toggleDarkMode}
@@ -61,7 +143,9 @@
 
     <div class="flex flex-grow">
         <!-- Left Sidebar -->
-        <div class="left-sidebar w-1/4 border-r border-gray-300 dark:border-gray-300 p-4" style="background-color: inherit;">
+        <div class="left-sidebar w-1/4 border-r border-gray-300 dark:border-gray-300 p-4"
+             class:sidebar-hidden={!$isSidebarOpen}
+        >
             <h2 class="text-lg font-bold mb-4">Questions so far...</h2>
             <ul class="space-y-2">
                 {#each $askedQuestions as { id, question } (id)}
@@ -76,7 +160,7 @@
         </div>
 
         <!-- Main Content -->
-        <div class="main-content flex flex-col w-3/4">
+        <div class="main-content flex flex-col w-3/4" class:w-full={!$isSidebarOpen}>
             <!-- Chat Section -->
             <div class="flex-grow p-4 overflow-y-auto space-y-4" style="background-color: inherit;">
                 {#each $chatMessages as { id, role, text } (id)}
