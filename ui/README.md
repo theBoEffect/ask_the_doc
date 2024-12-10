@@ -29,3 +29,7 @@ yarn build
 * You can preview the production build with `yarn preview`.
 * Build will actually create a copy of the static files in the ./service/static folder where you can serve them with the python backend
 * Remember to update your .env BACKEND variable to point to where you are hosting the backend
+
+### Todo
+
+* Code cleanup...
