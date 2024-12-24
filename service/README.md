@@ -24,6 +24,8 @@ PRE_PROCESSED_SECTIONS=preprocessed_tos.json
 ```
 * creeate .env in ./service with the above
 * define and activate your local python venv
+    * python3 -m venv .venv
+    * source .venv/bin/activate
 * pip install --no-cache-dir -r requirements.txt
 
 ## 2. Pick Your Document
