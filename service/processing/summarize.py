@@ -207,9 +207,13 @@ def process_section(section: Dict, document: List, llm: ChatOpenAI) -> Dict:
 
 
 def save_json(data: List[Dict], file_path: str):
-    with open(file_path, 'w') as f:
+    # Get the absolute path to ensure it's correct relative to the root
+    root_dir = Path(__file__).resolve().parent.parent
+    full_path = f"{root_dir}/{file_path}"
+    # Write the contents
+    with open(full_path, 'w') as f:
         json.dump(data, f, indent=4)
-    logging.info(f"Saved summarized data to {file_path}.")
+    logging.info(f"Saved summarized data to {full_path}.")
 
 def save_text(content: str, file_path: str):
     with open(file_path, 'w') as f:
@@ -239,14 +243,6 @@ def main():
         sections = json.load(f)
     logging.info(f"Loaded {len(sections)} sections from {input_toc}.")
     
-    # Verify the number of pages
-    expected_pages = 920
-    actual_pages = len(documents)
-    if actual_pages != expected_pages:
-        warning_msg = f"Expected {expected_pages} pages, but loaded {actual_pages} pages."
-        logging.warning(warning_msg)
-        print(f"Warning: {warning_msg}")
-    
     summarized_sections = []
 
     # Process each section one by one
@@ -260,8 +256,12 @@ def main():
             continue  # Stop processing on error
     
     # Save the summarized sections to docSummary.json
-    save_json(summarized_sections, output_json)
-    print(f"Summarized data saved to {output_json}")
+    try:
+        save_json(summarized_sections, output_json)
+        print(f"Summarized data saved to {output_json}")
+    except Exception as e:
+        logging.error(f"Error writing data to output json: {e}")
+        print(f"Error writing data to output json: {e}")
 
 if __name__ == "__main__":
     main()

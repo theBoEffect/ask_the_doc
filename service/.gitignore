@@ -11,3 +11,4 @@ chroma_db/
 __pycache__/
 static/
 scratch
+scratch/
